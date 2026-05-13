@@ -1,33 +1,40 @@
 #include <iostream>
-#include <memory>
-#include "cppunit.h"
+#include "csharpfactory.h"
+#include "cppfactory.h"
+#include "factorylanguage.h"
 
-std::string generateProgram() {
-    CppClassUnit myClass("MyClass");
-
-    myClass.add(
-        std::make_shared<CppMethodUnit>("testFunc1", "void", 0),
-        CppClassUnit::PUBLIC
+std::string generateProgram(FactoryLanguage* factory, const std::string& className) {
+    auto myClass = factory->CreateClass(className);
+    myClass->add(
+        factory->CreateMethod("testFunc1", "void", 0),
+        0
+        );
+    myClass->add(
+        factory->CreateMethod("testFunc2", "void", 1),
+        2
+        );
+    myClass->add(
+        factory->CreateMethod("testFunc3", "void", 6),
+        0
         );
 
-    myClass.add(
-        std::make_shared<CppMethodUnit>("testFunc2", "void", CppMethodUnit::STATIC),
-        CppClassUnit::PRIVATE
-        );
+    auto method = factory->CreateMethod("testFunc4", "void", 1);
+    method->add(factory->CreatePrint("Hello, world!\\n"), 0);
+    myClass->add(method, 1);
 
-    myClass.add(
-        std::make_shared<CppMethodUnit>("testFunc3", "void", CppMethodUnit::VIRTUAL | CppMethodUnit::CONST),
-        CppClassUnit::PUBLIC
-        );
-
-    auto method = std::make_shared<CppMethodUnit>("testFunc4", "void", CppMethodUnit::STATIC);
-    method->add(std::make_shared<CppPrintUnit>("Hello, world!\\n"));
-    myClass.add(method, CppClassUnit::PROTECTED);
-
-    return myClass.compile();
+    return myClass->compile();
 }
 
 int main() {
-    std::cout << generateProgram() << std::endl;
+    std::cout << "=== Code Generator with Abstract Factory Pattern ===\n\n";
+
+    CppFactory cppFactory;
+    std::cout << generateProgram(&cppFactory, "MyCppClass");
+
+    std::cout << "=====================================\n\n";
+
+    CSharpFactory csharpFactory;
+    std::cout << generateProgram(&csharpFactory, "MyCSharpClass");
+
     return 0;
 }
