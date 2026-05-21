@@ -1,6 +1,7 @@
 #include <iostream>
 #include "csharpfactory.h"
 #include "cppfactory.h"
+#include "javafactory.h"
 #include "factorylanguage.h"
 
 std::string generateProgram(FactoryLanguage* factory, const std::string& className) {
@@ -35,6 +36,11 @@ int main() {
 
     CSharpFactory csharpFactory;
     std::cout << generateProgram(&csharpFactory, "MyCSharpClass");
+
+    std::cout << "=====================================\n\n";
+
+    JavaFactory javafactory;
+    std::cout << generateProgram(&javafactory, "MyJavaClass");
 
     return 0;
 }
