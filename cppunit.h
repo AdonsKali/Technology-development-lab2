@@ -5,7 +5,7 @@
 #include <vector>
 
 
-class CppClassUnit : public Unit {
+class CppClassUnit : public IClassUnit {
 public:
     enum AccessModifier { PUBLIC, PROTECTED, PRIVATE };
     static const std::vector<std::string> ACCESS_MODIFIERS;
@@ -21,7 +21,7 @@ private:
 };
 
 
-class CppMethodUnit : public Unit {
+class CppMethodUnit : public IMethodUnit {
 public:
     enum Modifier { STATIC = 1, CONST = 1 << 1, VIRTUAL = 1 << 2 };
 
@@ -38,7 +38,7 @@ private:
 
 
 
-class CppPrintUnit : public Unit {
+class CppPrintUnit : public  IPrintOperatorUnit {
 public:
     explicit CppPrintUnit(const std::string& text);
     std::string compile(unsigned int level = 0) const override;

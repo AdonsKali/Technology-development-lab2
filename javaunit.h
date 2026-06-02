@@ -6,7 +6,7 @@
 #include <string>
 #include <memory>
 
-class JavaClassUnit : public Unit {
+class JavaClassUnit : public IClassUnit {
 public:
     enum AccessModifier {
         PUBLIC,
@@ -27,7 +27,7 @@ private:
     std::vector<Fields> m_fields;
 };
 
-class JavaMethodUnit : public Unit {
+class JavaMethodUnit : public IMethodUnit {
 public:
     enum Modifier {
         STATIC = 1,
@@ -47,7 +47,7 @@ private:
     std::vector<std::shared_ptr<Unit>> m_body;
 };
 
-class JavaPrintUnit : public Unit {
+class JavaPrintUnit : public IPrintOperatorUnit {
 public:
     explicit JavaPrintUnit(const std::string& text);
     std::string compile(unsigned int level = 0) const override;

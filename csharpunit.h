@@ -6,7 +6,7 @@
 #include <string>
 #include <memory>
 
-class CSharpClassUnit : public Unit {
+class CSharpClassUnit : public IClassUnit {
 public:
     enum AccessModifier {
         PUBLIC,
@@ -28,7 +28,7 @@ private:
 };
 
 
-class CSharpMethodUnit : public Unit {
+class CSharpMethodUnit : public IMethodUnit {
 public:
     enum Modifier {
         STATIC = 1,
@@ -48,7 +48,7 @@ private:
 };
 
 
-class CSharpPrintUnit : public Unit {
+class CSharpPrintUnit : public IPrintOperatorUnit {
 public:
     explicit CSharpPrintUnit(const std::string& text);
     std::string compile(unsigned int level = 0) const override;
